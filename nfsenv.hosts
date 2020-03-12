@@ -1,0 +1,9 @@
+[server]
+NFS-server1 ansible_user=centos
+
+[client]
+NFS-client[01:03] ansible_user=centos
+
+[nfs_environment:children]
+server
+client
