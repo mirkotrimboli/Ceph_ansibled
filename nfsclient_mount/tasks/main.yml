@@ -5,7 +5,6 @@
     owner: root
     group: root
     state: directory
-  register: dir_created
   tags: prerequisite 
    
 - name: Edit fstab and mount the NFS volume
@@ -15,6 +14,4 @@
     fstype: nfs4
     opts: "noatime"
     state: mounted
-  when: dir_created is succeeded
-  register: mounted
   tags: prerequisite
