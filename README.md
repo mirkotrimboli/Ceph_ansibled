@@ -16,7 +16,7 @@ Sul server Ansible:
 # Installazione e configurazione iniziale dei nodi 
 se necessario modificare le variabili sotto group_vars/all/vars.yml
 
-* datadev_name: nvme1n1
+* datadev_name: xvdb
 * nfs_dir: "/nfs"
 
 lanciare il playbook ansible con il comando:
