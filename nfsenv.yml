@@ -1,0 +1,13 @@
+---
+- hosts: server
+  become: yes
+  roles:
+    - { role: nfsserver_packages, tags: [ 'prerequisite' ] }
+    - { role: nfsserver_filesystem, tags: [ 'prerequisite' ] }
+    - { role: nfsserver_exports, tags: [ 'configuration' ] }
+    - { role: nfsserver_services, tags: [ 'configuration' ] }
+
+- hosts: client
+  become: yes
+  roles:
+    - { role: nfsclient_filesystem, tags: [ 'configuration' ] }

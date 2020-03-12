@@ -1,0 +1,18 @@
+---
+- name: Ensure SELinux is set to disabled mode
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: SELINUX=disabled
+  tags: configuration
+
+- name: Reloading daemons
+  command: systemctl daemon-reload
+  tags: configuration
+
+- name: Make sure NFS is started and enabled
+  systemd:
+    name: nfs
+    enabled: yes
+    state: started
+  tags: configuration
