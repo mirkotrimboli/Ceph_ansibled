@@ -43,6 +43,7 @@
     path: "{{nfs_dir}}"
     owner: root
     group: root
+    mode: '0777'
     state: directory
   when: xfs_format is succeeded
   register: dir_created
