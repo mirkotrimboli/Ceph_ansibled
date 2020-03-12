@@ -10,4 +10,4 @@
 - hosts: client
   become: yes
   roles:
-    - { role: nfsclient_filesystem, tags: [ 'configuration' ] }
+    - { role: nfsclient_mount, tags: [ 'configuration' ] }
