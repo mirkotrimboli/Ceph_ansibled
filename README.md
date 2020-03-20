@@ -2,7 +2,7 @@
 Delivery of a NFS server on AWS
 
 # Prerequisiti AWS
-Assicurarsi che sulle macchine sia presente:
+Assicurarsi che sulla macchina sia presente:
 
 * Un volume aggiuntivo per l'export
 * Service Group con regole Inbound aperte per la connessione SSH
