@@ -9,6 +9,7 @@ Assicurarsi che sulla macchina sia presente:
 * che sia stato dato un ip alla scheda di rete
 
 Sul server Ansible:
+
 * Fare il download con git clone
 * All'interno dell'inventory path inserire la "chiave.pem" per l'accesso in SSH
 * Modificare il file hosts del server ansible aggiungendo gli ip degli host da raggiungere e nominandoli come specificato in nfsenv.hosts
@@ -21,4 +22,4 @@ se necessario modificare le variabili sotto group_vars/all/vars.yml
 
 lanciare il playbook ansible con il comando:
 
-* ansible-playbook -i nfsenv.hosts nfsenv.yml --key-file=./chiave.pem --user=centos
+* ansible-playbook -i nfsenv.hosts nfsenv.yml --key-file=./chiave.pem
