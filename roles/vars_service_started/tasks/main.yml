@@ -1,0 +1,7 @@
+---
+- name: Make sure {{vars_service}} is started
+  systemd:
+    name: "{{item}}"
+    state: started
+  loop: "{{vars_service}}"
+  tags: requisite

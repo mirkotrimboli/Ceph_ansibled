@@ -1,0 +1,5 @@
+---
+- name: Formatting secondary disk  
+  shell: |
+    sudo wipefs --all /dev/{{dev2}}
+  tags: configuration

@@ -1,0 +1,54 @@
+---
+- hosts: ceph
+  become: yes
+  roles:
+    - { role: vars_user_cando_sudo, tags: [ 'prerequisite' ] }
+#    - { role: vars_forwardproxy_4systems, tags: [ 'prerequisite' ] } # Use this for proxied delivery
+    - { role: ensure_minimal_installations, tags: [ 'prerequisite' ] }
+    - { role: update_systems, tags: [ 'prerequisite' ] }
+    - { role: secure_minimal, tags: [ 'prerequisite' ] }
+    - { role: reboot, tags: [ 'prerequisite' ] }
+    - { role: vars_create_appuser_group, tags: [ 'requisite' ] }
+    - { role: vars_create_path_4appuser, tags: [ 'requisite' ] }
+    - { role: vars_appuser_cando_sudo, tags: [ 'prerequisite' ] }
+    - { role: vars_sshkey_trust, tags: [ 'requisite' ] }
+    - { role: vars_map_etc_hosts, tags: [ 'requisite' ] }
+    - { role: vars_ceph_presettings, tags: [ 'requisite' ] }
+    - { role: vars_install, tags: [ 'requisite' ] }
+    - { role: vars_docker_packages, tags: [ 'requisite' ] }
+#    - { role: vars_forwardproxy_4services, tags: [ 'requisite' ] } # Use this for proxied delivery
+    - { role: vars_set_ntp_4client, tags: [ 'requisite' ] }
+    - { role: update_systems, tags: [ 'prerequisite' ] }
+    - { role: vars_service_enabled, tags: [ 'requisite' ] }
+    - { role: vars_service_started, tags: [ 'requisite' ] }
+    - { role: reboot, tags: [ 'prerequisite' ] }
+    - { role: vars_ceph_packages, tags: [ 'requisite' ] }
+
+- hosts: ceph01
+  become: yes
+  roles:
+    - { role: vars_ceph_bootstrap_dashboard, tags: [ 'configuration' ] }
+
+- hosts: ceph
+  become: yes
+  roles:
+    - { role: vars_ceph_node_key, tags: [ 'configuration' ] }
+
+- hosts: ceph01
+  become: yes
+  roles:
+    - { role: vars_ceph_add_hosts, tags: [ 'configuration' ] }
+    - { role: vars_ceph_add_mon, tags: [ 'configuration' ] }
+    - { role: vars_ceph_add_mgr, tags: [ 'configuration' ] }
+
+- hosts: ceph
+  become: yes
+  roles:
+    - { role: vars_ceph_format_2nd_vol, tags: [ 'configuration' ] }
+
+- hosts: ceph01
+  become: yes
+  roles:
+    - { role: vars_ceph_add_osd, tags: [ 'configuration' ] }
+    - { role: vars_cephfs_setting, tags: [ 'configuration' ] }
+    - { role: vars_cephrbd_setting, tags: [ 'configuration' ] }

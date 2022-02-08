@@ -1,0 +1,14 @@
+---
+- name: Ensure group for "{{vars_appuser}}" exists
+  group:
+    name: "{{vars_appuser}}"
+    state: present
+  tags: requisite 
+
+- name: Ensure user "{{vars_appuser}}" exists
+  user:
+    name: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    home: "{{vars_apphome}}"
+    shell: /bin/bash
+  tags: requisite 

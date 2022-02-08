@@ -1,0 +1,13 @@
+---
+- name: Add osd to {{vars_hosts}} 
+  shell: |
+    sudo ceph osd tree | column -t -s $'\t'
+  become: "{{vars_appuser}}"
+  tags: configuration
+
+- name: Add osd to {{vars_hosts}} 
+  shell: |
+    sudo ceph orch daemon add osd {{item}}:/dev/{{dev2}}
+  become: "{{vars_appuser}}"
+  loop: "{{vars_hosts}}"
+  tags: configuration

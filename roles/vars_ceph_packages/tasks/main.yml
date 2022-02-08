@@ -1,0 +1,25 @@
+---
+- name: Set cephadm
+  copy:
+    src: roles/vars_ceph_packages/templates/cephadm
+    dest: "/usr/local/bin/cephadm"
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0755'
+    backup: yes
+  tags: requisite
+
+- name: Add {{vars_version}} repository
+  command: sudo /usr/local/bin/cephadm add-repo --release {{vars_version}}
+  become: "{{vars_appuser}}"
+  tags: requisite
+
+- name: Install {{vars_version}} release
+  command: sudo /usr/local/bin/cephadm install
+  become: "{{vars_appuser}}"
+  tags: requisite
+
+- name: Install ceph-common
+  command: sudo /usr/local/bin/cephadm install ceph-common
+  become: "{{vars_appuser}}"
+  tags: requisite

@@ -1,0 +1,39 @@
+user: "" # username 
+password: "" # password
+vars_user: "{{user}}"
+#forwardproxy_cfg: "secureproxy.sh.j2" # Use this for proxied delivery
+#proxy_user: "" # Use this for proxied delivery
+#proxy_pass: "" # Use this for proxied delivery
+#proxy_url: "" # Use this for proxied delivery
+#proxy_port: "" # Use this for proxied delivery
+#no_proxy: "localhost,127.0.0.1,::1,localaddress,*.localdomain" # Use this for proxied delivery
+#network: "IP.IP.IP.0/subnet" # Use this for proxied delivery
+#apt_conf: "aptsecure.conf.j2" # Use this for proxied delivery
+vars_appuser: "cephadmin"
+vars_apphome: "/home/cephadmin"
+ip1: ""
+ip2: ""
+ip3: ""
+host1: "" # Edit with hostname of node 1
+host2: "" # Edit with hostname of node 2
+host3: "" # Edit with hostname of node 3
+vars_package:
+  - python3
+  - systemd-timesyncd
+docker_script: "20.10.7.sh"
+ntp_url: ""
+vars_service:
+  - docker
+  - systemd-timesyncd
+#forwardproxy_script: "forwardproxy.docker.j2"
+#vars_proxy: "http://{{proxy_user}}:{{proxy_pass}}@{{proxy_url}}:{{proxy_port}}"
+#docker_no_proxy: "0.0.0.0,10.0.0.0/8,cattle-system.svc,172.16.0.0/12,.svc,.cluster.local"
+#console_url: ""
+vars_version: "octopus"
+dash_pass: ""
+vars_hosts:
+  - "{{host1}}"
+  - "{{host2}}"
+  - "{{host3}}"
+ceph_network: IP.IP.IP.0/subnet"
+dev2: "sdb" # Edit with name of your device

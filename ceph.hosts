@@ -1,0 +1,13 @@
+[ceph01]
+hostname01 ansible_user={{user}} ansible_password={{password}} ansible_sudo_pass={{password}}
+
+[ceph02]
+hostname02 ansible_user={{user}} ansible_password={{password}} ansible_sudo_pass={{password}}
+
+[ceph03]
+hostname03 ansible_user={{user}} ansible_password={{password}} ansible_sudo_pass={{password}}
+
+[ceph:children]
+ceph01
+ceph02
+ceph03

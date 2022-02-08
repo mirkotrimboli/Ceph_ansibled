@@ -1,0 +1,36 @@
+---
+- name: Create directory .ssh for ssh keys
+  file:
+    path: "{{vars_apphome}}/.ssh"
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0700'
+    state: directory
+  tags: requisite 
+   
+- name: Copy key for user {{vars_appuser}}, backing up the original if it differs from the copied version
+  copy:
+    src: keys/{{vars_appuser}}.pem
+    dest: "{{vars_apphome}}/.ssh/id_rsa"
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0600'
+    backup: yes
+  tags: requisite
+
+- name: Create authorized_keys for user "{{vars_appuser}}"
+  file:
+    path: "{{vars_apphome}}/.ssh/authorized_keys"
+    state: touch
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0600'
+    backup: yes
+  tags: requisite
+
+- name: Set authorized key taken from file for user "{{vars_appuser}}"
+  authorized_key:
+    user: "{{vars_appuser}}"
+    state: present
+    key: "{{ lookup('file', 'keys/{{vars_appuser}}.pub') }}"
+  tags: requisite

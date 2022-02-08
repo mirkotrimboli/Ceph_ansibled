@@ -1,0 +1,34 @@
+---
+- name: Create ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
+  file:
+    path: /etc/ceph/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0666'
+    state: touch
+  tags: configuration 
+
+- name: Add volume to cephrbd 
+  shell: |
+    sudo ceph osd pool create {{vars_project}}_{{vars_env}}_rbd 128
+    sudo ceph osd pool set {{vars_project}}_{{vars_env}}_rbd pg_autoscale_mode on
+    sudo rbd pool init {{vars_project}}_{{vars_env}}_rbd
+    sudo ceph osd pool autoscale-status
+    sudo ceph auth get-or-create client.{{vars_project}}_{{vars_env}}_rbd mon 'profile rbd' osd 'profile rbd pool={{vars_project}}_{{vars_env}}_rbd' mgr 'profile rbd pool={{vars_project}}_{{vars_env}}_rbd' >> /etc/ceph/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
+  become: "{{vars_appuser}}"
+  tags: configuration
+
+- name: Copy rbd_user.keyring to local.
+  fetch:
+    src: /etc/ceph/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
+    dest: "results/{{vars_project}}_{{vars_env}}/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring"
+    flat: yes
+  tags: configuration
+
+- name: Ensure ownership for ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
+  file:
+    path: /etc/ceph/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0600'
+  tags: configuration 

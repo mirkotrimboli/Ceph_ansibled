@@ -1,0 +1,43 @@
+---
+- name: Create ceph.client.user.keyring
+  file:
+    path: /etc/ceph/ceph.client.user.keyring
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0666'
+    state: touch
+  tags: configuration 
+
+- name: Add volume to cephfs 
+  shell: |
+    sudo ceph fs volume create {{vars_project}}_{{vars_env}}
+    sudo ceph orch apply mds {{vars_project}}_{{vars_env}} 3
+    sudo ceph osd pool get cephfs.{{vars_project}}_{{vars_env}}.data pg_num
+    sudo ceph osd pool get cephfs.{{vars_project}}_{{vars_env}}.meta pgp_num
+    sudo ceph osd pool set cephfs.{{vars_project}}_{{vars_env}}.data pg_num 128 && sudo ceph osd pool set cephfs.{{vars_project}}_{{vars_env}}.data pgp_num 128
+    sudo ceph osd pool get cephfs.{{vars_project}}_{{vars_env}}.data pg_num && sudo ceph osd pool get cephfs.{{vars_project}}_{{vars_env}}.meta pgp_num
+    sudo ceph config set global mon_allow_pool_delete true
+    sudo ceph fs authorize {{vars_project}}_{{vars_env}} client.user / rw >> /etc/ceph/ceph.client.user.keyring
+  become: "{{vars_appuser}}"
+  tags: configuration
+
+- name: Copy user.keyring to local.
+  fetch:
+    src: /etc/ceph/ceph.client.user.keyring
+    dest: "results/{{vars_project}}_{{vars_env}}/ceph.client.user.keyring"
+    flat: yes
+  tags: configuration
+
+- name: Ensure ownership for ceph.client.user.keyring
+  file:
+    path: /etc/ceph/ceph.client.user.keyring
+    owner: "{{vars_appuser}}"
+    group: "{{vars_appuser}}"
+    mode: '0600'
+  tags: configuration 
+
+- name: Add subvolume to volume {{vars_project}}_{{vars_env}} 
+  shell: |
+    sudo ceph fs subvolumegroup create {{vars_project}}_{{vars_env}} {{vars_project}}_{{vars_env}}_subv
+  become: "{{vars_appuser}}"
+  tags: configuration
