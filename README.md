@@ -1,25 +1,21 @@
-# ansible-nfsserver-onAWS
-Delivery of a NFS server on AWS
+# Ceph_ansibled
+This playbook aims to produce a cluster Ceph.
 
-# Prerequisiti AWS
-Assicurarsi che sulla macchina sia presente:
+# Release note
+* The code work on multiple Operative Systems Linux based.
+* It is tested with: Ubuntu 18.04LTS, 20.04LTS, CentOS 7.x, 8.x
+* It is meant for to get a cluster Ceph predisposed behind a proxy, if necessary you can enable tasks in playbook yaml file.
+* It is meant for work also on Cloud on IaaS.
 
-* Un volume aggiuntivo per l'export
-* Service Group con regole Inbound aperte per la connessione SSH
-* che sia stato dato un ip alla scheda di rete
+# To use this code:
+* Download the playbook.
+* Edit your hosts file with IP and hostnames of your servers.
+* Edit playbook hosts file with hostnames of your servers.
+* create a private key for the user "cephadmin", rename the produced files as "cephadmin.pem, cephadmin.pub" and place them in the "keys" folder
+* Compile file in group_vars directory as is it is explained.
+* Then you must to move into the folder with command: "cd /absolute/path/to/playbook".
+* Finally you can run the code with command: "ansible-playbook -i ceph.hosts ceph.yaml".
 
-Sul server Ansible:
-
-* Fare il download con git clone
-* All'interno dell'inventory path inserire la "chiave.pem" per l'accesso in SSH
-* Modificare il file hosts del server ansible aggiungendo gli ip degli host da raggiungere e nominandoli come specificato in nfsenv.hosts
-
-# Installazione e configurazione iniziale dei nodi 
-se necessario modificare le variabili sotto group_vars/all/vars.yml
-
-* datadev_name: xvdb
-* nfs_dir: "/nfs"
-
-lanciare il playbook ansible con il comando:
-
-* ansible-playbook -i nfsenv.hosts nfsenv.yml --key-file=./chiave.pem
+# For use on Cloud
+* Edit playbook hosts file without references to password.
+* You can run the code with command: "ansible-playbook -i ceph.hosts ceph.yaml --key-file=/absolute/path/to/key.pem".
