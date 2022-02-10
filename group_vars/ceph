@@ -1,6 +1,8 @@
 user: "" # username 
 password: "" # password
 vars_user: "{{user}}"
+vars_project: "" # Edit with your project name
+vars_env: "" # Edit with your env type, for example: "svi"
 #forwardproxy_cfg: "secureproxy.sh.j2" # Use this for proxied delivery
 #proxy_user: "" # Use this for proxied delivery
 #proxy_pass: "" # Use this for proxied delivery
