@@ -51,4 +51,8 @@
   roles:
     - { role: vars_ceph_add_osd, tags: [ 'configuration' ] }
     - { role: vars_cephfs_setting, tags: [ 'configuration' ] }
+
+- hosts: ceph01
+  become: yes
+  roles:
     - { role: vars_cephrbd_setting, tags: [ 'configuration' ] }
