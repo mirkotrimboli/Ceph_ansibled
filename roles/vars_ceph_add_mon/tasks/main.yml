@@ -2,18 +2,21 @@
 - name: Set mon public_network 
   shell: |
     sudo ceph config set mon public_network {{ceph_network}}
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   tags: configuration
 
 - name: Add label mon to {{vars_hosts}} 
   shell: |
     sudo ceph orch host label add {{item}} mon
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   loop: "{{vars_hosts}}"
   tags: configuration
 
 - name: Add mon to {{host1}} 
   shell: |
     sudo ceph orch apply mon "{{host1}},{{host2}},{{host3}}"
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   tags: configuration
