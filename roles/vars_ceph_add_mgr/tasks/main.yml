@@ -2,12 +2,14 @@
 - name: Add label mgr to {{vars_hosts}} 
   shell: |
     sudo ceph orch host label add {{item}} mgr
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   loop: "{{vars_hosts}}"
   tags: configuration
 
 - name: Add mgr to {{host1}} 
   shell: |
     sudo ceph orch apply mgr "{{host1}},{{host2}},{{host3}}"
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   tags: configuration
