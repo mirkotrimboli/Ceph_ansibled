@@ -14,7 +14,8 @@
 
 - name: Bootstrap Dashboard
   command: sudo /usr/local/bin/cephadm bootstrap --mon-ip {{ip1}} --initial-dashboard-user admin  --initial-dashboard-password {{dash_pass}} --dashboard-password-noupdate --output-config /etc/ceph/ceph.conf
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   when:
     - not file.stat.exists
   tags: configuration

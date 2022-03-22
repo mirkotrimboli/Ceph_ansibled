@@ -30,6 +30,7 @@ vars_service:
 #forwardproxy_script: "forwardproxy.docker.j2"
 #vars_proxy: "http://{{proxy_user}}:{{proxy_pass}}@{{proxy_url}}:{{proxy_port}}"
 #docker_no_proxy: "0.0.0.0,10.0.0.0/8,cattle-system.svc,172.16.0.0/12,.svc,.cluster.local"
+#domain: ""
 #console_url: ""
 vars_version: "octopus"
 dash_pass: ""

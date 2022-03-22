@@ -18,7 +18,8 @@
     sudo ceph osd pool get cephfs.{{vars_project}}_{{vars_env}}.data pg_num && sudo ceph osd pool get cephfs.{{vars_project}}_{{vars_env}}.meta pgp_num
     sudo ceph config set global mon_allow_pool_delete true
     sudo ceph fs authorize {{vars_project}}_{{vars_env}} client.user / rw >> /etc/ceph/ceph.client.user.keyring
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   tags: configuration
 
 - name: Copy user.keyring to local.
@@ -39,5 +40,6 @@
 - name: Add subvolume to volume {{vars_project}}_{{vars_env}} 
   shell: |
     sudo ceph fs subvolumegroup create {{vars_project}}_{{vars_env}} {{vars_project}}_{{vars_env}}_subv
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   tags: configuration

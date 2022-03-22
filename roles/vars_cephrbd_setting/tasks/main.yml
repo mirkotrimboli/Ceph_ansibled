@@ -15,7 +15,8 @@
     sudo rbd pool init {{vars_project}}_{{vars_env}}_rbd
     sudo ceph osd pool autoscale-status
     sudo ceph auth get-or-create client.{{vars_project}}_{{vars_env}}_rbd mon 'profile rbd' osd 'profile rbd pool={{vars_project}}_{{vars_env}}_rbd' mgr 'profile rbd pool={{vars_project}}_{{vars_env}}_rbd' >> /etc/ceph/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   tags: configuration
 
 - name: Copy rbd_user.keyring to local.
