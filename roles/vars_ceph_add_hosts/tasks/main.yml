@@ -1,6 +1,7 @@
 ---
 - name: Add hosts {{vars_hosts}} to {{host1}} 
   command: sudo ceph orch host add {{item}}
-  become: "{{vars_appuser}}"
+  become: true
+  become_user: "{{vars_appuser}}"
   loop: "{{vars_hosts}}"
   tags: configuration
