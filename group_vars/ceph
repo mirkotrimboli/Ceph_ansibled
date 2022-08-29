@@ -8,6 +8,7 @@ vars_env: "" # Edit with your env type, for example: "svi"
 #proxy_pass: "" # Use this for proxied delivery
 #proxy_url: "" # Use this for proxied delivery
 #proxy_port: "" # Use this for proxied delivery
+#vars_proxy: "{{proxy_url}}:{{proxy_port}}" # Use this for proxied delivery
 #no_proxy: "localhost,127.0.0.1,::1,localaddress,*.localdomain" # Use this for proxied delivery
 #network: "IP.IP.IP.0/subnet" # Use this for proxied delivery
 #apt_conf: "aptsecure.conf.j2" # Use this for proxied delivery
@@ -23,16 +24,12 @@ vars_package:
   - python3
   - systemd-timesyncd
 docker_script: "20.10.12.sh"
+#forwardproxy_script: "forwardproxy.docker.j2"
 ntp_url: ""
 vars_service:
   - docker
   - systemd-timesyncd
-#forwardproxy_script: "forwardproxy.docker.j2"
-#vars_proxy: "http://{{proxy_user}}:{{proxy_pass}}@{{proxy_url}}:{{proxy_port}}"
-#docker_no_proxy: "0.0.0.0,10.0.0.0/8,cattle-system.svc,172.16.0.0/12,.svc,.cluster.local"
-#domain: ""
-#console_url: ""
-vars_version: "octopus"
+vars_version: "quincy"
 vars_cephadm: "cephadm4{{vars_version}}"
 dash_pass: ""
 vars_hosts:
