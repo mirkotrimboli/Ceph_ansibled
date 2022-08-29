@@ -22,7 +22,7 @@ host3: "" # Edit with hostname of node 3
 vars_package:
   - python3
   - systemd-timesyncd
-docker_script: "20.10.7.sh"
+docker_script: "20.10.12.sh"
 ntp_url: ""
 vars_service:
   - docker
@@ -33,6 +33,7 @@ vars_service:
 #domain: ""
 #console_url: ""
 vars_version: "octopus"
+vars_cephadm: "cephadm4{{vars_version}}"
 dash_pass: ""
 vars_hosts:
   - "{{host1}}"
