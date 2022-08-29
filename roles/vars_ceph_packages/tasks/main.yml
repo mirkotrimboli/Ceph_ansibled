@@ -1,7 +1,7 @@
 ---
-- name: Set cephadm
+- name: Set {{vars_cephadm}}
   copy:
-    src: roles/vars_ceph_packages/templates/cephadm
+    src: "roles/vars_ceph_packages/templates/{{vars_cephadm}}"
     dest: "/usr/local/bin/cephadm"
     owner: "{{vars_appuser}}"
     group: "{{vars_appuser}}"

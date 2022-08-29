@@ -1,4 +1,13 @@
 ---
+- name: Create directory /etc/ssh/ssh_config.d
+  file:
+    path: /etc/ssh/ssh_config.d
+    owner: root
+    group: root
+    mode: '0755'
+    state: directory
+  tags: requisite 
+
 - name: Set ssh config for Ceph
   template:
     src: ssh_conf.j2

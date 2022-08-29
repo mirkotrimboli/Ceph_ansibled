@@ -20,52 +20,32 @@
     - not file.stat.exists
   tags: configuration
 
-- name: Grep fsid from ceph.conf 
-  shell: |
-    cat /etc/ceph/ceph.conf | grep fsid | awk '{ print $3 }' > /etc/ceph/fsid
-  tags: configuration
+- name: Create directory results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}
+  file:
+    path: results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}
+    owner: root
+    group: root
+    mode: '0777'
+    state: directory
+  tags: fullautomation 
   
 - name: Copy bootstrap informations to local.
   fetch:
     src: /etc/ceph/ceph.conf
-    dest: "results/{{vars_project}}_{{vars_env}}/ceph.conf"
+    dest: "results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.conf"
     flat: yes
   tags: configuration
 
 - name: Copy ceph.client.admin.keyring to local.
   fetch:
     src: /etc/ceph/ceph.client.admin.keyring
-    dest: "results/{{vars_project}}_{{vars_env}}/ceph.client.admin.keyring"
+    dest: "results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.client.admin.keyring"
     flat: yes
   tags: configuration
 
 - name: Copy ceph.pub to local.
   fetch:
     src: /etc/ceph/ceph.pub
-    dest: "results/{{vars_project}}_{{vars_env}}/ceph.pub"
+    dest: "results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.pub"
     flat: yes
   tags: configuration
-
-- name: Copy fsid to local.
-  fetch:
-    src: /etc/ceph/fsid
-    dest: "results/{{vars_project}}_{{vars_env}}/fsid"
-    flat: yes
-  tags: configuration
-
-#- name: get fsid from /etc/ceph/fsid
-#  slurp:
-#    src: /etc/ceph/fsid
-#  register: fsid_encoded
-#  tags: configuration
-
-#- name: decode fsid
-#  set_fact:
-#    fsid: "{{fsid_encoded.content | b64decode}}"
-#  tags: configuration
-
-#- name: Launch cephadm shell
-#  command: |
-#    sudo /usr/local/bin/cephadm shell --fsid {{fsid}} -c /etc/ceph/ceph.conf -k /etc/ceph/ceph.client.admin.keyring
-#  become: "{{vars_user}}"
-#  tags: configuration

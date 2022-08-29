@@ -22,7 +22,7 @@
 - name: Copy rbd_user.keyring to local.
   fetch:
     src: /etc/ceph/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring
-    dest: "results/{{vars_project}}_{{vars_env}}/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring"
+    dest: "results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.client.{{vars_project}}_{{vars_env}}_rbd.keyring"
     flat: yes
   tags: configuration
 

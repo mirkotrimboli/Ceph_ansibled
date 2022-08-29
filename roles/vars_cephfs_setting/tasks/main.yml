@@ -25,7 +25,7 @@
 - name: Copy user.keyring to local.
   fetch:
     src: /etc/ceph/ceph.client.user.keyring
-    dest: "results/{{vars_project}}_{{vars_env}}/ceph.client.user.keyring"
+    dest: "results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.client.user.keyring"
     flat: yes
   tags: configuration
 

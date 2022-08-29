@@ -4,4 +4,19 @@
   become: true
   become_user: "{{vars_appuser}}"
   loop: "{{vars_hosts}}"
+  when: vars_version == "octopus"
+  tags: configuration
+
+- name: Add hosts {{vars_hosts[1]}} to {{host1}} 
+  command: "sudo ceph orch host add {{vars_hosts[1]}}"
+  become: true
+  become_user: "{{vars_appuser}}"
+  when: vars_version == "quincy"
+  tags: configuration
+
+- name: Add hosts {{vars_hosts[2]}} to {{host1}} 
+  command: "sudo ceph orch host add {{vars_hosts[2]}}"
+  become: true
+  become_user: "{{vars_appuser}}"
+  when: vars_version == "quincy"
   tags: configuration

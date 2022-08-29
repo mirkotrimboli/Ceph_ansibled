@@ -4,7 +4,7 @@ This playbook aims to produce a cluster Ceph.
 # Release note
 * The code work on multiple Operative Systems Linux based.
 * It is tested with: Ubuntu 18.04LTS, 20.04LTS, CentOS 7.x, 8.x
-* It is meant for to get a cluster Ceph predisposed behind a proxy, if necessary you can enable tasks in playbook yaml file.
+* It is meant to get a Ceph cluster set up behind a proxy, you can choose between octopus, pacific and quincy versions by changing the variables, if necessary you can enable activities in the playbook yaml file.
 * It is meant for work also on Cloud on IaaS.
 
 # To use this code:

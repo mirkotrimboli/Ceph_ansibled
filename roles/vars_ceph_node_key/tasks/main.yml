@@ -3,12 +3,12 @@
   authorized_key:
     user: root
     state: present
-    key: "{{ lookup('file', 'results/{{vars_project}}_{{vars_env}}/ceph.pub') }}"
+    key: "{{ lookup('file', 'results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.pub') }}"
   tags: configuration
 
 - name: Set ceph.conf to {{host2}} and {{host3}}
   copy:
-    src: "results/{{vars_project}}_{{vars_env}}/ceph.conf"
+    src: "results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.conf"
     dest: /etc/ceph/ceph.conf
     owner: root
     group: root
@@ -17,7 +17,7 @@
 
 - name: Set ceph.client.admin.keyring to {{host2}} and {{host3}}
   copy:
-    src: "results/{{vars_project}}_{{vars_env}}/ceph.client.admin.keyring"
+    src: "results/{{vars_project}}_{{vars_env}}/ceph{{vars_version}}/ceph.client.admin.keyring"
     dest: /etc/ceph/ceph.client.admin.keyring
     owner: root
     group: root
